@@ -197,7 +197,9 @@
       el.setAttribute('role', 'progressbar')
       self.lines(el, self.opts)
 
-      if (!useCssAnimations) {
+      console.log('spin → spin, useCssAnimations: ', useCssAnimations);
+
+      if (true) {
         // No CSS animation support, use setTimeout() instead
         var i = 0
           , start = (o.lines - 1) * (1 - o.direction) / 2
@@ -214,9 +216,9 @@
 
             // Fix animation in Safari
             // https://stackoverflow.com/a/7327573/1363799
-            var n = document.createTextNode(' ');
-            el.appendChild(n);
-            setTimeout(function() {el.removeChild(n); }, 0);
+            el.appendChild(' ');
+            // setTimeout(function() { el.removeChild(n); }, 0);
+            console.log('spin → anim');
 
             self.opacity(el, j * o.direction + start, alpha, o)
           }
