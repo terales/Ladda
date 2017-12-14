@@ -97,9 +97,14 @@
 
 				// Fix in Safari
 
-				// Try https://stackoverflow.com/a/21947628/1363799
-				button.style.transform = "";
-				setTimeout(function() { button.style.transform = "translateZ(0)"; }, 0);
+				// https://stackoverflow.com/a/7327573/1363799
+                var n = document.createTextNode(' ');
+                button.appendChild(n);
+                setTimeout(function() {button.removeChild(n); }, 0);
+
+				// This one didn't work: https://stackoverflow.com/a/21947628/1363799
+				// button.style.transform = "";
+				// setTimeout(function() { button.style.transform = "translateZ(0)"; }, 0);
 
 				// This one didn't work: https://stackoverflow.com/a/3485654/1363799
 				// var originalDisplay = button.style.display;
