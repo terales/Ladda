@@ -96,7 +96,14 @@
 				this.setProgress( 0 );
 
 				// Fix in Safari, try https://stackoverflow.com/a/9513843/1363799
-                button.style.webkitTransform = 'scale(1)';
+				var originalDisplay = button.style.display;
+                button.style.display = 'none';
+                var varToPassJsHint = button.offsetHeight; // no need to store this anywhere, the reference is enough
+                button.style.display = originalDisplay;
+                varToPassJsHint = varToPassJsHint ? null : false;
+
+                // This one didn't work: https://stackoverflow.com/a/9513843/1363799
+                // button.style.webkitTransform = 'scale(1)';
 
 				return this; // chain
 
