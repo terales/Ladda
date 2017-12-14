@@ -95,12 +95,18 @@
 
 				this.setProgress( 0 );
 
-				// Fix in Safari, try https://stackoverflow.com/a/9513843/1363799
-				var originalDisplay = button.style.display;
-                button.style.display = 'none';
-                var varToPassJsHint = button.offsetHeight; // no need to store this anywhere, the reference is enough
-                button.style.display = originalDisplay;
-                varToPassJsHint = varToPassJsHint ? null : false;
+				// Fix in Safari
+
+				// Try https://stackoverflow.com/a/21947628/1363799
+				button.style.transform = "";
+				setTimeout(function() { button.style.transform = "translateZ(0)"; }, 0);
+
+				// This one didn't work: https://stackoverflow.com/a/3485654/1363799
+				// var originalDisplay = button.style.display;
+                // button.style.display = 'none';
+                // var varToPassJsHint = button.offsetHeight; // no need to store this anywhere, the reference is enough
+                // button.style.display = originalDisplay;
+                // varToPassJsHint = varToPassJsHint ? null : false;
 
                 // This one didn't work: https://stackoverflow.com/a/9513843/1363799
                 // button.style.webkitTransform = 'scale(1)';
