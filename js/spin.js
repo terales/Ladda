@@ -212,6 +212,12 @@
           for (var j = 0; j < o.lines; j++) {
             alpha = Math.max(1 - (i + (o.lines - j) * astep) % f * ostep, o.opacity)
 
+            // Fix animation in Safari
+            // https://stackoverflow.com/a/7327573/1363799
+            var n = document.createTextNode(' ');
+            el.appendChild(n);
+            setTimeout(function() {el.removeChild(n); }, 0);
+
             self.opacity(el, j * o.direction + start, alpha, o)
           }
           self.timeout = self.el && setTimeout(anim, ~~(1000/fps))
