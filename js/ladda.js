@@ -95,6 +95,9 @@
 
 				this.setProgress( 0 );
 
+				// Fix in Safari, try https://stackoverflow.com/a/9513843/1363799
+                button.style.webkitTransform = 'scale(1)';
+
 				return this; // chain
 
 			},
