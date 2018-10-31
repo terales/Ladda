@@ -4,44 +4,11 @@ module.exports = function(grunt) {
 	// Project configuration
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
-		meta: {
-			banner:
-				'/*!\n' +
-				' * Ladda <%= pkg.version %> (<%= grunt.template.today("yyyy-mm-dd, HH:MM") %>)\n' +
-				' * http://lab.hakim.se/ladda\n' +
-				' * MIT licensed\n' +
-				' *\n' +
-				' * Copyright (C) 2017 Hakim El Hattab, http://hakim.se\n' +
-				' */'
-		},
-
-		uglify: {
-			main: {
-				options: {
-					banner: '<%= meta.banner %>\n'
-				},
-				files: {
-					'dist/ladda.min.js': 'js/ladda.js'
-				}
-			},
-			lib: {
-				options: {
-					output: {
-						comments: /^!/
-					}
-				},
-				files: {
-					'dist/spin.min.js': 'js/spin.js',
-					'dist/ladda.jquery.min.js': 'js/ladda.jquery.js'
-				}
-			}
-		},
 
 		sass: {
 			main: {
 				options: {
-					style: 'compressed',
-					sourcemap: 'none'
+					outputStyle: 'compressed',
 				},
 				files: {
 					'dist/ladda.min.css': [ 'css/ladda-themed.scss' ],
@@ -53,6 +20,7 @@ module.exports = function(grunt) {
 		jshint: {
 			options: {
 				// enforcing
+				esversion: 6,
 				curly: true,
 				eqeqeq: true,
 				freeze: true,
@@ -68,14 +36,13 @@ module.exports = function(grunt) {
 				nocomma: true,
 				nonbsp: true,
 				nonew: true,
-				strict: true,
 				undef: true,
 				unused: true,
 				// environments
 				browser: true,
 				node: true,
 			},
-			files: [ 'Gruntfile.js', 'js/ladda.js', 'js/ladda.jquery.js' ]
+			files: [ 'Gruntfile.js', 'js/ladda.js' ]
 		},
 
 		connect: {
@@ -96,7 +63,7 @@ module.exports = function(grunt) {
 				},
 			},
 			theme: {
-				files: [ 'css/ladda.scss' ],
+				files: [ 'css/*.scss' ],
 				tasks: 'css',
 				options: {
 					livereload: true,
@@ -108,19 +75,17 @@ module.exports = function(grunt) {
 
 	// Dependencies
 	grunt.loadNpmTasks( 'grunt-contrib-jshint' );
-	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
-	grunt.loadNpmTasks( 'grunt-contrib-sass' );
+	grunt.loadNpmTasks( 'grunt-sass' );
 	grunt.loadNpmTasks( 'grunt-contrib-connect' );
 
 	// Default task
 	grunt.registerTask( 'default', [ 'js', 'css' ] );
 
 	// Theme task
-	grunt.registerTask( 'js', [ 'jshint', 'uglify' ] );
+	grunt.registerTask( 'js', [ 'jshint' ] );
 	grunt.registerTask( 'css', [ 'sass' ] );
 
 	// Serve presentation locally
 	grunt.registerTask( 'serve', [ 'connect', 'watch' ] );
-
 };
